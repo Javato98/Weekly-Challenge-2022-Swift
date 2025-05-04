@@ -1,4 +1,3 @@
-import Foundation
 
 /*
  * Reto #1
@@ -20,3 +19,9 @@ import Foundation
  *
  */
 
+
+func isAnagrama(word1: String, word2: String) -> Bool{
+    return word1.lowercased().sorted() == word2.lowercased().sorted() ? true : false
+}
+
+print(isAnagrama(word1: "Roma", word2: "amor"))
