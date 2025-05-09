@@ -1,4 +1,3 @@
-import Foundation
 
 /*
  * Reto #8
@@ -17,21 +16,15 @@ import Foundation
  *
  */
 
-func decimalToBinary(_ decimal: Int) -> String {
-    
-    var number = decimal
-    var binary = ""
-    
-    while number != 0 {
-        
-        let reminder = number % 2
-        number /= 2
-        
-        binary = "\(reminder)\(binary)"
+func convertToBinary(number: Int) -> String {
+    var number = number
+    var bin : String = ""
+    while number > 0 {
+        let rest = number % 2
+        bin = String(rest) + bin
+        number = number / 2
     }
-    
-    return binary.isEmpty ? "0" : binary
+    return bin
 }
 
-print(decimalToBinary(387))
-print(decimalToBinary(0))
+print(convertToBinary(number: 10))

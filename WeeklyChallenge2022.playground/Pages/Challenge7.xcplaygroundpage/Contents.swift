@@ -1,4 +1,4 @@
-import Foundation
+import Foundation   
 
 /*
  * Reto #7
@@ -20,27 +20,21 @@ import Foundation
  *
  */
 
-func countWords(text: String) {
+let frase = "Hola que tal, ¿la frase hola mundo fue la primera que se compiló en un programa web?. No lo sé, habría que investigarlo"
+let fraseMin = frase.lowercased()
+let fraseLimpia = fraseMin.filter { !$0.isPunctuation }
+let palabras = fraseLimpia.split(separator: " ")
+var palabrasUsadas: [String] = []
 
-    let mutableString = NSMutableString(string: text.lowercased())
-    
-    let regex = try! NSRegularExpression(pattern: "[^a-z0-9]", options: [])
-    regex.replaceMatches(in: mutableString, options: [], range: NSMakeRange(0, mutableString.length), withTemplate: " ")
-    
-    var words: [String:Int] = [:]
-    
-    String(mutableString).split(separator: " ").forEach { word in
-        let key = String(word)
-        if words[key] != nil {
-            words[key]! += 1
-        } else {
-            words[key] = 1
+for palabra in palabras {   
+    var contador = 0
+    if !palabrasUsadas.contains(palabra) {
+        palabrasUsadas.append(palabra)       
+        for palabra2 in palabras{
+            if palabra == palabra2{
+                contador += 1
+            } 
         }
-    }
-    
-    words.forEach { key, value in
-        print("\(key) se ha repetido \(value) \(value == 1 ? "vez" : "veces")")
+        print("\(palabra) sale \(String(contador)) veces")
     }
 }
-
-countWords(text: "Hola, mi nombre es brais. Mi nombre completo es Brais Moure (MoureDev).")

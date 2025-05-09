@@ -1,4 +1,4 @@
-import Foundation
+
 
 /*
  * Reto #4
@@ -20,52 +20,59 @@ import Foundation
  *
  */
 
-area(polygon: Triangle(base: 10.0, height: 5.0))
-area(polygon: Rectangle(length: 5.0, width: 7.0))
-area(polygon: Square(side: 4.0))
-
 protocol Polygon {
-
     func area() -> Double
-    func printArea()
+    func printArea()   
 }
 
-struct Triangle: Polygon {
+struct Triangle : Polygon {
+    let base, height : Double
 
-    let base, height: Double
+    init(base: Double, height : Double) {
+        self.base = base
+        self.height = height
+    }
     
+
     func area() -> Double {
         return (base * height) / 2
     }
 
     func printArea() {
-        print("El área del triángulo es \(area())")
+        print("El aéra del triángulo es de \(area())")
     }
 }
 
-struct Rectangle: Polygon {
+struct Rectangle : Polygon {
+    let base, height : Double
 
-    let length, width: Double
-    
+    init(base: Double, height : Double) {
+        self.base = base
+        self.height = height
+    }
+
     func area() -> Double {
-        return length * width
+        return base * height
     }
 
-    func printArea() {
-        print("El área del rectángulo es \(area())")
-    }
+     func printArea() {
+        print("El área del rectágulo es de \(area())")
+     }   
 }
 
-struct Square: Polygon {
+struct Square : Polygon {
+    let side : Double
 
-    let side: Double
-    
+    init(side: Double) {
+        self.side = side
+    }
+
     func area() -> Double {
         return side * side
     }
 
     func printArea() {
-        print("El área del cuadrado es \(area())")
+        print("El área del cuadrado es de \(area())")
     }
 }
 
@@ -73,3 +80,6 @@ func area(polygon: Polygon) -> Double {
     polygon.printArea()
     return polygon.area()
 }
+
+var triangle = Triangle(base: 3, height: 4)
+print(area(polygon: triangle))          

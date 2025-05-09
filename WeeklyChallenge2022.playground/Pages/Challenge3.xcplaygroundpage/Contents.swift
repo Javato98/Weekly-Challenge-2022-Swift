@@ -16,25 +16,31 @@ import Foundation
  * - Revisaré el ejercicio en directo desde Twitch el lunes siguiente al de su publicación.
  * - Subiré una posible solución al ejercicio el lunes siguiente al de su publicación.
  *
- */
+*/
 
-func isPrime(number: Int) -> Bool {
-    
-    if number < 2 {
-        return false
+struct ConditionsPrime {
+    init(num : Int) {
+        self.num = num
     }
-    
-    for i in 2 ..< number {
-        if number % i == 0 {
-            return false
+    func biggerThan1() -> Bool{
+        return self.num > 1
+    }
+
+    func isDivisible() -> Bool{
+        for i in 2...Int(sqrt(Double(self.num))) {
+            if self.num % i == 0 {
+                return false
+            }
         }
+        return true
     }
-    
-    return true
 }
 
-(1...100).forEach { number in
-    if isPrime(number: number) {
-        print(number)
-    }
+func isPrime(num: Int) -> Bool{
+    var conditions = ConditionsPrime(num: num)
+    return conditions.biggerThan1() && conditions.isDivisible()
+}
+
+for i in (1...100) {
+    if isPrime(num : i) {print(i)}  
 }
