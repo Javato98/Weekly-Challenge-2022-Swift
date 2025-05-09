@@ -20,74 +20,71 @@ import Foundation
  *
  */
 
-func decoder(input: String) -> String {
-
-    var decodedInput = ""
-
-    let naturalDict = ["A":".—", "N":"—.", "0":"—————",
-                           "B":"—...", "Ñ":"——.——", "1":".————",
-                           "C":"—.—.", "O":"———", "2":"..———",
-                           "CH":"————", "P":".——.", "3":"...——",
-                           "D":"—..", "Q":"——.—", "4":"....—",
-                           "E":".", "R":".—.", "5":".....",
-                           "F":"..—.", "S":"...", "6":"—....",
-                           "G":"——.", "T":"—", "7":"——...",
-                           "H":"....", "U":"..—", "8":"———..",
-                           "I":"..", "V":"...—", "9":"————.",
-                           "J":".———", "W":".——", ".":".—.—.—",
-                           "K":"—.—", "X":"—..—", ",":"——..——",
-                           "L":".—..", "Y":"—.——", "?":"..——..",
-                           "M":"——", "Z":"——..", "\"":".—..—.", "/":"—..—."]
-
-    var morseDict: [String: String] = [:]
-    naturalDict.forEach { key, value in
-        morseDict[value] = key
+func makeAlphabetList() -> [String] {
+    let strAlphabet = "abcdefghijklmnopqrstuvwxyz "
+    var arrayAlphabet: [String] = []
+    for letter in strAlphabet {
+        arrayAlphabet.append(String(letter))
     }
-
-    if input.rangeOfCharacter(from: CharacterSet.letters) != nil || input.rangeOfCharacter(from: CharacterSet.decimalDigits) != nil {
-
-        // Natural
-
-        var index = 0
-        var ch = false
-
-        input.uppercased().forEach { character in
-            if !ch && character != " " {
-                let nextIndex = index + 1
-                if character == "C" && nextIndex < input.count && Array(input.uppercased())[nextIndex] == "H" {
-                    decodedInput += naturalDict["CH"] ?? ""
-                    ch = true
-                } else {
-                    decodedInput += naturalDict[character.description] ?? ""
-                }
-
-                decodedInput += " "
-            } else {
-                if (!ch) {
-                    decodedInput += " "
-                }
-                ch = false
-            }
-
-            index += 1
-        }
-
-    } else if (input.contains(".") || input.contains("—")) {
-
-        // Morse
-
-        input.components(separatedBy: "  ").forEach { word in
-            word.components(separatedBy: " ").forEach { symbols in
-                decodedInput += morseDict[symbols] ?? ""
-            }
-            decodedInput += " "
-        }
-    }
-
-    return decodedInput
+    return arrayAlphabet
 }
 
-let naturalText = "Chocapic. Es una marca de cereales?"
-let morseText = decoder(input: naturalText)
-print(morseText)
-print(decoder(input: morseText))
+func decoder(str: String) -> String { 
+    let alphabet = makeAlphabetList()
+    let alphabetMorse = [
+        ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--..", "  "
+    ]
+    
+    var result = ""
+    for letter in str {
+        if let index = alphabet.firstIndex(of: String(letter)) {
+            result += alphabetMorse[index] + " "
+        }
+    }
+    return result
+}
+
+print(decoder(str: "hola mundo"))
+
+// Otra forma de hacerlo 
+
+func decorderV2(str: String) -> String {
+    let alphabetMorse: [Character: String] = [
+        "a": ".-",
+        "b": "-...",
+        "c": "-.-.",
+        "d": "-..",
+        "e": ".",
+        "f": "..-.",
+        "g": "--.",
+        "h": "....",
+        "i": "..",
+        "j": ".---",
+        "k": "-.-",
+        "l": ".-..",
+        "m": "--",
+        "n": "-.",
+        "o": "---",
+        "p": ".--.",
+        "q": "--.-",
+        "r": ".-.",
+        "s": "...",
+        "t": "-",
+        "u": "..-",
+        "v": "...-",
+        "w": ".--",
+        "x": "-..-",
+        "y": "-.--",
+        "z": "--.."
+    ]
+
+    var result = ""
+    for letter in str {
+        if let morseLetter = alphabetMorse[letter] {
+            result += "\(morseLetter) "
+        }
+    }
+    return result
+}
+
+print(decorderV2(str: "hola mundo"))
