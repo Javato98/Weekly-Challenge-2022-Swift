@@ -28,8 +28,8 @@ var palabrasUsadas: [String] = []
 
 for palabra in palabras {   
     var contador = 0
-    if !palabrasUsadas.contains(palabra) {
-        palabrasUsadas.append(palabra)       
+    if !palabrasUsadas.contains(String(palabra)) {
+        palabrasUsadas.append(String(palabra))       
         for palabra2 in palabras{
             if palabra == palabra2{
                 contador += 1

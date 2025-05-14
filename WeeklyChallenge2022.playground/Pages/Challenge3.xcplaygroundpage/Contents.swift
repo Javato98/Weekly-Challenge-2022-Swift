@@ -19,6 +19,8 @@ import Foundation
 */
 
 struct ConditionsPrime {
+    let num : Int
+    
     init(num : Int) {
         self.num = num
     }
@@ -37,7 +39,7 @@ struct ConditionsPrime {
 }
 
 func isPrime(num: Int) -> Bool{
-    var conditions = ConditionsPrime(num: num)
+    let conditions = ConditionsPrime(num: num)
     return conditions.biggerThan1() && conditions.isDivisible()
 }
 
