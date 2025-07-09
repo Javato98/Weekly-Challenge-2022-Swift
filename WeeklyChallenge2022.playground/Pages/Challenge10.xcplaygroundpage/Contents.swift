@@ -21,19 +21,32 @@ import Foundation
  *
  */
 
-func isCorrect(text: String, character: String) -> Bool {
-    var contador = 0
-    var checkDetect = false
-    let openSpecialChar = ["{", "[", "("]
-    let closeSpecialChar = ["}", "]", ")"]
-    for letter in text {
-        if String(letter) == character {
-            checkDetect = true
-        }
-        if checkDetect {
-            if openSpecialChar.contains(String(letter)) {
-                contador += 1
+func isBalanced(expression: String) -> Bool {
+    let symbols = ["{":"}", "[":"]", "(":")"]
+    var stack = [String]()
+    
+    for character in expression {
+        let symbol = character.description
+        let containsKey = symbols.keys.contains(symbol)
+        let containsValue = symbols.values.contains(symbol)
+        
+        if containsKey || containsValue {
+            if containsKey {
+                stack.append(symbol)
+            } else if stack.isEmpty {
+                return false
+            } else if let lastSymbol = stack.popLast(), symbol != symbols[lastSymbol] {
+                return false
             }
         }
     }
+    return stack.isEmpty
 }
+
+//print(isBalanced(expression: "{a + b [c] * (2x2)}}}}"))
+//print(isBalanced(expression: "{ [ a * ( c + d ) ] - 5 }"))
+//print(isBalanced(expression: "{ a * ( c + d ) ] - 5 }"))
+//print(isBalanced(expression: "{a^4 + (((ax4)}"))
+//print(isBalanced(expression: "{ ] a * ( c + d ) + ( 2 - 3 )[ - 5 }"))
+//print(isBalanced(expression: "{{{{{{(}}}}}}"))
+//print(isBalanced(expression: "(a"))

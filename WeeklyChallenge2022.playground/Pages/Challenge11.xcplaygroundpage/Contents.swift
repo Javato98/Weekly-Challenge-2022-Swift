@@ -19,33 +19,28 @@ import Foundation
  *
  */
 
-func printNonCommon(str1: String, str2: String) {
-    print("out1: \(findNonCommon(str1: str1, str2: str2))")
-    print("out2: \(findNonCommon(str1: str2, str2: str1))")
+func noSentencesMatch (str1: String, str2: String) {
+    print(firstNotInSecond (str1: str1, str2: str2))
+    print(secondNotInFirst (str1: str1, str2: str2))
 }
 
-func findNonCommon(str1: String, str2: String) -> String {
-
-    var out = ""
-
-    str1.lowercased().forEach {
-        if (!str2.lowercased().contains($0)) {
-            out += $0.description
+func firstNotInSecond (str1: String, str2: String) -> String {
+    var word = ""
+    for letter in str1 {
+        if !str2.contains(letter) {
+            word += String(letter)
         }
     }
-
-    return out
+    return word
 }
 
-func printNonCommonWithFilter(str1: String, str2: String) {
-    print("out1: \(str1.lowercased().filter { !str2.lowercased().contains($0) })")
-    print("out2: \(str2.lowercased().filter { !str1.lowercased().contains($0) })")
+func secondNotInFirst (str1: String, str2: String) -> String {
+    var word = ""
+    for letter in str2 {
+        if !str1.contains(letter) {
+            word += String(letter)
+        }
+    }
+    return word
 }
-
-printNonCommon(str1: "brais", str2: "moure")
-printNonCommon(str1: "Me gusta Objective-C", str2: "Me gusta Swift")
-printNonCommon(str1: "Usa el canal de nuestro discord (https://mouredev.com/discord) \"🔁reto-semanal\" para preguntas, dudas o prestar ayuda a la comunidad.",
-               str2: "Puedes hacer un Fork del repo y una Pull Request al repo original para que veamos tu solución aportada.")
-
-// Otra solución utilizando funciones de orden superior
-printNonCommonWithFilter(str1: "Usa el canal de nuestro discord (https://mouredev.com/discord) \"🔁reto-semanal\" para preguntas, dudas o prestar ayuda a la comunidad.", str2: "Puedes hacer un Fork del repo y una Pull Request al repo original para que veamos tu solución aportada.")
+noSentencesMatch(str1: "Rocodromo", str2: "cacao")
